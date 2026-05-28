@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 requests = "*"
+renogy-ble = "*"
+matplotlib = "*"
 
 [dev-packages]
 
@@ -13,3 +15,5 @@ python_version = "3.12"
 
 [scripts]
 daily = "python export.py"
+hqst = "python hqst_export.py"
+enphase = "python enphase_export.py"

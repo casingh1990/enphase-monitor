@@ -6,5 +6,22 @@ token = YOUR_JWT_TOKEN_HERE
 ip = YOUR_IP_HERE
 token = YOUR_JWT_TOKEN_HERE
 
+[hqst]
+# The Bluetooth MAC address or Name of your HQST/Renogy charge controller.
+# Run a BLE scan if you don't know the MAC address.
+# Either MAC address or Name can be used to discover/connect.
+mac_address = AA:BB:CC:DD:EE:FF
+device_name = BT-TH-XXXXXXXX
+device_type = controller
+
+# Optional protocol customization (defaults are pre-configured for ChargePro/HQST: ID 1 & ffe1 characteristics)
+device_id = 1
+read_char_uuid = 0000ffe1-0000-1000-8000-00805f9b34fb
+write_char_uuid = 0000ffe1-0000-1000-8000-00805f9b34fb
+
+# Scaling multipliers (Default is 0.5 for power and 0.05 for generation to scale decawatt-hours to Wh & divide by 2 system voltage tier)
+power_multiplier = 0.5
+generation_multiplier = 0.05
+
 [settings]
 unit_cost = 0.26
