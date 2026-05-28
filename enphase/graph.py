@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from datetime import datetime
 
-def generate_enphase_graph(csv_path="enphase_history.csv", output_dir="production/images/house"):
+def generate_enphase_graph(csv_path="production/data/enphase_history.csv", output_dir="production/images/house"):
     """
     Reads the Enphase history CSV, filters for today's data,
     and generates a beautiful stacked or multi-line production graph.

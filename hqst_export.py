@@ -42,8 +42,11 @@ async def main():
     )
     
     if data:
+        # Create output directory if it does not exist
+        os.makedirs("production/data", exist_ok=True)
+        
         # Save latest reading to hqst.json
-        output_json = "hqst.json"
+        output_json = "production/data/hqst.json"
         
         # Apply scaling multipliers to live data
         scaled_data = dict(data)
@@ -55,7 +58,7 @@ async def main():
             json.dump(scaled_data, f, indent=4)
         
         # Append reading to hqst_history.csv
-        csv_file = "hqst_history.csv"
+        csv_file = "production/data/hqst_history.csv"
         file_exists = os.path.exists(csv_file)
         
         fields = [

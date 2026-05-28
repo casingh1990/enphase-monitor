@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from datetime import datetime
 
-def generate_graph(csv_path="hqst_history.csv", output_dir="production/images/shed"):
+def generate_graph(csv_path="production/data/hqst_history.csv", output_dir="production/images/shed"):
     """
     Reads the solar history CSV, filters for today's data,
     and generates a beautiful production graph saved to the target directory.
