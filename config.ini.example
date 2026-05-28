@@ -1,0 +1,10 @@
+[envoy1]
+ip = YOUR_IP_HERE
+token = YOUR_JWT_TOKEN_HERE
+
+[envoy2]
+ip = YOUR_IP_HERE
+token = YOUR_JWT_TOKEN_HERE
+
+[settings]
+unit_cost = 0.26
