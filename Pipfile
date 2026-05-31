@@ -7,6 +7,8 @@ name = "pypi"
 requests = "*"
 renogy-ble = "*"
 matplotlib = "*"
+flask = "*"
+gunicorn = "*"
 
 [dev-packages]
 
@@ -17,3 +19,6 @@ python_version = "3.12"
 daily = "python export.py"
 hqst = "python hqst_export.py"
 enphase = "python enphase_export.py"
+consumption = "python enphase_export.py"
+post = "python -c 'from utils.update_post import post_solar_update; post_solar_update()'"
+api = "python app.py"

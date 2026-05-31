@@ -69,16 +69,16 @@ def generate_enphase_graph(csv_path="production/data/enphase_history.csv", outpu
     ax.spines["left"].set_color("#d1d5db")
     ax.spines["bottom"].set_color("#d1d5db")
     
-    # Add a smart legend
-    ax.legend(loc="upper right", frameon=True, facecolor="white", edgecolor="#e5e7eb")
+    # Add a smart legend below the plot (horizontal layout)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.18), ncol=3, frameon=True, facecolor="white", edgecolor="#e5e7eb")
     
     # Get peak metrics to show in annotation
     peak_power = max(total_powers)
     latest_power = total_powers[-1]
     
-    # Display annotations
-    ax.text(0.02, 0.95, f"Peak: {peak_power:.1f} W\nLatest: {latest_power:.1f} W", 
-            transform=ax.transAxes, fontsize=10, verticalalignment='top',
+    # Display annotations in the bottom-left corner of the plot
+    ax.text(0.02, 0.05, f"Peak: {peak_power:.1f} W\nLatest: {latest_power:.1f} W", 
+            transform=ax.transAxes, fontsize=10, verticalalignment='bottom',
             bbox=dict(boxstyle='round,pad=0.5', facecolor='#ffffff', edgecolor='#e5e7eb', alpha=0.9))
     
     # Construct filename based on current date

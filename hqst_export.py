@@ -1,35 +1,19 @@
 import asyncio
 import json
-import configparser
 import os
 import csv
 from datetime import datetime
 from hqst.production import get_hqst_production
-
-# Load config
-config = configparser.ConfigParser()
-config_file = 'config.ini'
-
-mac_address = None
-device_name = None
-device_type = 'controller'
-device_id = 1
-read_char_uuid = "0000ffe1-0000-1000-8000-00805f9b34fb"
-write_char_uuid = "0000ffe1-0000-1000-8000-00805f9b34fb"
-power_multiplier = 0.5
-generation_multiplier = 0.05
-
-if os.path.exists(config_file):
-    config.read(config_file)
-    if 'hqst' in config:
-        mac_address = config['hqst'].get('mac_address', None)
-        device_name = config['hqst'].get('device_name', None)
-        device_type = config['hqst'].get('device_type', 'controller')
-        device_id = config['hqst'].getint('device_id', 1)
-        read_char_uuid = config['hqst'].get('read_char_uuid', '0000ffe1-0000-1000-8000-00805f9b34fb')
-        write_char_uuid = config['hqst'].get('write_char_uuid', '0000ffe1-0000-1000-8000-00805f9b34fb')
-        power_multiplier = config['hqst'].getfloat('power_multiplier', 0.5)
-        generation_multiplier = config['hqst'].getfloat('generation_multiplier', 0.05)
+from utils.config import (
+    HQST_MAC_ADDRESS as mac_address,
+    HQST_DEVICE_NAME as device_name,
+    HQST_DEVICE_TYPE as device_type,
+    HQST_DEVICE_ID as device_id,
+    HQST_READ_CHAR_UUID as read_char_uuid,
+    HQST_WRITE_CHAR_UUID as write_char_uuid,
+    HQST_POWER_MULTIPLIER as power_multiplier,
+    HQST_GENERATION_MULTIPLIER as generation_multiplier,
+)
 
 async def main():
     data = await get_hqst_production(

@@ -42,13 +42,90 @@ Run `crontab -e` and add the following entry:
 * * * * * /home/amit/code/enphase/bin/hqst.sh
 ```
 
+### Enphase Consumption Monitor
+
+Fetches whole-home consumption and net grid telemetry. Implements dual-gateway mathematical calibration for parallel CT wiring configurations (`ct_scale_factor` defaulted to `2.0`).
+
+```bash
+pipenv run consumption
+```
+
+#### Cron Setup for Consumption (Every minute)
+
+```cron
+* * * * * /home/amit/code/enphase/bin/consumption.sh
+```
+
+### WordPress Auto-Poster
+
+Automatically uploads daily solar charts (House Solar, Shed Solar, Consumption) and posts unified HTML summaries of your daily metrics to WordPress using the REST API.
+
+```bash
+pipenv run post
+```
+
+#### Cron Setup for WordPress Updates (Every 15-30 minutes)
+
+```cron
+*/15 * * * * /home/amit/code/enphase/bin/post.sh
+```
+
+### Live Telemetry Flask API
+
+Serves live, calibrated real-time data directly from both Envoy gateways. Returns JSON containing live and daily combined production, consumption, net grid import/export, and per-Envoy details.
+
+To start the API server on port 5000:
+
+```bash
+pipenv run api
+```
+
+#### Endpoint Structure
+
+`GET /api/solar`
+```json
+{
+  "timestamp": "2026-05-29 17:35:12",
+  "production": {
+    "w": 4200.0,
+    "wh_today": 18450.0,
+    "kwh_today": 18.45
+  },
+  "consumption": {
+    "w": 1850.0,
+    "wh_today": 12300.0,
+    "kwh_today": 12.30
+  },
+  "import": {
+    "w": 0.0,
+    "wh_today": 2000.0,
+    "kwh_today": 2.0
+  },
+  "export": {
+    "w": 2350.0,
+    "wh_today": 8150.0,
+    "kwh_today": 8.15
+  },
+  "net_grid": {
+    "w": -2350.0,
+    "wh_today": -6150.0,
+    "kwh_today": -6.15,
+    "status": "exporting"
+  }
+}
+```
+
 ## Project Structure
 
-- `export.py` - Enphase monitor main entry point
-- `hqst_export.py` - HQST monitor main entry point
-- `bin/daily.sh` - Daily task wrapper script
-- `bin/hqst.sh` - Every-minute task wrapper script for HQST
-- `enphase/` - Enphase production fetching module
-- `hqst/` - HQST solar charge controller BLE module
+- `export.py` - Enphase daily monitor / email notification main entry point
+- `enphase_export.py` - Enphase live production logging script (run every minute)
+- `enphase_consumption.py` - Calibrated consumption and grid logger (run every minute)
+- `hqst_export.py` - HQST monitor main entry point (run every minute)
+- `app.py` - Live Enphase Telemetry Flask API
+- `utils/config.py` - Centralized config loader (reads from `config.ini`)
+- `utils/update_post.py` - WordPress post updater / media uploader
+- `bin/` - Scheduled cron task shell wrappers (daily, hqst, enphase, consumption, post, api)
+- `enphase/` - Enphase production fetching and graph modules
+- `hqst/` - HQST solar charge controller BLE and graph modules
 - `config.ini` - Device credentials (not committed)
-- `email_sender.py` - Email notification logic
+- `email_sender.py` - Inline HTML email notification engine

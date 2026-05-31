@@ -25,3 +25,11 @@ generation_multiplier = 0.05
 
 [settings]
 unit_cost = 0.26
+# Set to 2.0 to correct for current splitting when CT wires are connected in parallel
+ct_scale_factor = 2.0
+
+[post]
+url = https://your-site.com/wp-json/wp/v2/posts/136
+username = your_username
+app_password = your_application_password
+post_id = your_post_id
